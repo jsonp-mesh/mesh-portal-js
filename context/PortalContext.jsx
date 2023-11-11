@@ -10,6 +10,7 @@ export const PortalContext = createContext(defaultState);
      const [portalInstance, setPortalInstance] = useState(null);
      const [isPortalReady, setIsPortalReady] = useState(false);
      const [portalError, setPortalError] = useState(null);
+     const [walletAddress, setWalletAddress] = useState(null);
 
 
   useEffect(() => {
@@ -40,7 +41,8 @@ export const PortalContext = createContext(defaultState);
           }
             
             console.log('Portal is ready, calling onReady callback');
-                      setIsPortalReady(true); // Update when the portal is ready
+            setWalletAddress(portal.address);
+            setIsPortalReady(true); // Update when the portal is ready
 
         } catch (error) {
           // Handle errors during onReady execution
@@ -57,6 +59,7 @@ export const PortalContext = createContext(defaultState);
         portalInstance,
         isPortalReady,
         portalError,
+        walletAddress
         
     };
 

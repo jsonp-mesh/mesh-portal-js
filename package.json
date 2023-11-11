@@ -11,6 +11,8 @@
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
+    "@front-finance/api": "^1.1.8",
+    "@front-finance/link": "^1.1.8",
     "@mui/material": "^5.14.17",
     "@portal-hq/web": "^0.0.5",
     "next": "14.0.2",
