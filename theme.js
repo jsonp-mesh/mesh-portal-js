@@ -10,7 +10,7 @@ const theme = createTheme({
       main: '#F7C366',
     },
     tertiary: {
-      main: '#008F7E',
+      main: '#F6B94C',
     },
   },
 });

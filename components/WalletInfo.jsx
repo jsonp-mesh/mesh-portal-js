@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Button, Card, CardContent, Typography, Box } from '@mui/material';
 import { PortalContext } from '../context/PortalContext';
 import MeshModal from './MeshModal';
+import { handleOpenMeshModal, handleExit } from '../utils/meshUtils';
 
 export default function WalletBalanceCard() {
     const { portalInstance, walletAddress } = useContext(PortalContext);
@@ -51,30 +52,13 @@ export default function WalletBalanceCard() {
 
     const buttonStyle = {
         marginTop: '20px', // Spacing from the last text element
-        backgroundColor: '#4caf50', // A strong color for the button
+        backgroundColor: '#F6B94C', // A strong color for the button
         '&:hover': {
             backgroundColor: '#388e3c', // Darken on hover
         },
     };
 
-    const handleOpenMeshModal =  async () => {
- try {
-    const link = await fetch('/api/transfers/linkToken');
-
-    const response = await link.json();
-    if (response) {
-      setCatalogLink(response.content.linkToken);
-      setOpenMeshModal(true);
-    }
-  } catch (error) {
-    console.log('Error from Mesh:', error);
-    setError(`Something went wrong: ${error.message}`);
-  }
-    };
-
-    const handleExit = (error) => {
-        console.log('Broker connection closed:', error);
-  };
+    
     
     return (
         <div>
@@ -92,7 +76,7 @@ export default function WalletBalanceCard() {
                         style={buttonStyle}
                         variant="contained" 
                         color="primary" 
-                        onClick={handleOpenMeshModal}
+                         onClick={() => handleOpenMeshModal(setCatalogLink, setOpenMeshModal)}
                     >
                         Deposit
                     </Button>
