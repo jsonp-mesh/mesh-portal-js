@@ -1,0 +1,19 @@
+{
+    "editor.inlineSuggest.enabled": true,
+    "git.autofetch": true,
+    "git.enableSmartCommit": true,
+    "window.zoomLevel": 2,
+    "vs-code-prettier-eslint.prettierLast": true,
+    "reactSnippets.settings.prettierEnabled": true,
+    "editor.formatOnType": true,
+    "eslint.run": "onSave",
+    "notebook.formatOnSave.enabled": true,
+    "prettier.enableDebugLogs": true,
+    "editor.formatOnPaste": true,
+    "editor.codeActionsOnSave": {
+    
+      "source.fixAll.eslint": true
+    },
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    "editor.formatOnSave": true
+  }

@@ -2,24 +2,23 @@ import { FrontApi } from '@front-finance/api';
 export default async function handler(req, res) {
   const { PROD_API_KEY, MESH_API_URL, CLIENT_ID } = process.env;
 
-    //0x3706995bbe1810fc30beec089132e5b38dd675a7
+  //0x3706995bbe1810fc30beec089132e5b38dd675a7
   if (req.method !== 'GET') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
   const bodyObject = {
-      UserId: 'coin10244',
-        transferOptions: {
-          toAddresses: [
-            {
-              symbol: 'USDC',
-              address: '0x3706995bbe1810fc30beec089132e5b38dd675a7',
-              networkId: 'e3c7fdd8-b1fc-4e51-85ae-bb276e075611', // eth network id
-            }
-          ],
+    UserId: 'coin10244',
+    transferOptions: {
+      toAddresses: [
+        {
+          symbol: 'USDC',
+          address: '0x3706995bbe1810fc30beec089132e5b38dd675a7',
+          networkId: 'e3c7fdd8-b1fc-4e51-85ae-bb276e075611', // eth network id
         },
-      }
-
+      ],
+    },
+  };
 
   const api = new FrontApi({
     baseURL: MESH_API_URL,
@@ -29,7 +28,6 @@ export default async function handler(req, res) {
       'X-Client-Secret': PROD_API_KEY,
     },
   });
-
 
   try {
     const getCatalogLink =

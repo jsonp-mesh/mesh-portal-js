@@ -1,17 +1,16 @@
 import React, { createContext, useState, useEffect } from 'react';
 import Portal from '@portal-hq/web'; // Adjust the import according to your SDK
-
+import PropTypes from 'prop-types';
 
 const defaultState = {};
 
 export const PortalContext = createContext(defaultState);
 
- const PortalProvider = ({ children }) => {
-     const [portalInstance, setPortalInstance] = useState(null);
-     const [isPortalReady, setIsPortalReady] = useState(false);
-     const [portalError, setPortalError] = useState(null);
-     const [walletAddress, setWalletAddress] = useState(null);
-
+const PortalProvider = ({ children }) => {
+  const [portalInstance, setPortalInstance] = useState(null);
+  const [portalError, setPortalError] = useState(null);
+  const [walletAddress, setWalletAddress] = useState(null);
+  const [isPortalReady, setIsPortalReady] = useState(false);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -22,52 +21,46 @@ export const PortalContext = createContext(defaultState);
         apiKey: portalClientKey,
         autoApprove: process.env.NODE_ENV === 'development',
         chainId: 5,
-        gatewayConfig: gatewayConfig
+        gatewayConfig: gatewayConfig,
       });
-        
-        console.log('Setting portal instance', portal);
 
-        
-        setPortalInstance(portal);
+      console.log('Setting portal instance', portal);
+
+      setPortalInstance(portal);
 
       portal.onReady(async () => {
         try {
-          // Check if a wallet already exists
-
           if (!portal.address) {
-              await portal.createWallet();
-                        setIsPortalReady(true); // Update when the portal is ready
-
+            await portal.createWallet();
+            setIsPortalReady(true);
           }
-            
-            console.log('Portal is ready, calling onReady callback');
-            setWalletAddress(portal.address);
-            setIsPortalReady(true); // Update when the portal is ready
 
+          console.log('Portal is ready, calling onReady callback');
+          setWalletAddress(portal.address);
+          setIsPortalReady(true);
         } catch (error) {
-          // Handle errors during onReady execution
-         
-            setPortalError(error);
-            setIsPortalReady(true); // Update when the portal is ready
-          
+          console.error('Error during Portal onReady execution:', error);
+
+          setPortalError(error);
         }
       });
     }
   }, []);
 
-    const state = {
-        portalInstance,
-        isPortalReady,
-        portalError,
-        walletAddress
-        
-    };
+  const state = {
+    portalInstance,
+    isPortalReady,
+    portalError,
+    walletAddress,
+  };
 
- return (
-  <PortalContext.Provider value={ state }>
-    {children}
-  </PortalContext.Provider>
-);
+  return (
+    <PortalContext.Provider value={state}>{children}</PortalContext.Provider>
+  );
+};
+
+PortalProvider.propTypes = {
+  children: PropTypes.node.isRequired,
 };
 
 export default PortalProvider;
