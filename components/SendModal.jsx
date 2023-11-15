@@ -6,7 +6,6 @@ import {
   DialogActions,
   Button,
   TextField,
-  Typography,
 } from '@mui/material';
 
 const SendModal = ({ open, onClose, onSuccess, onExit }) => {

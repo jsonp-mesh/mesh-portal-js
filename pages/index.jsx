@@ -1,10 +1,24 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { CircularProgress, Typography, Box } from '@mui/material';
 import { PortalContext } from '../context/PortalContext';
 import WalletBalanceCard from '../components/WalletInfo';
 
 export default function ParentComponent() {
   const { isPortalReady, portalError } = useContext(PortalContext);
+  const [authData, setAuthData] = useState(() => {
+    if (typeof window !== 'undefined') {
+      // Initialize state from localStorage only in the browser
+      const storedAuthData = localStorage.getItem('authData');
+      return storedAuthData ? JSON.parse(storedAuthData) : null;
+    }
+    return null; // Return a default value (null) for server-side rendering
+  });
+
+  useEffect(() => {
+    // Effect to run when authData state changes
+    console.log('authData has been updated:', authData);
+    // Any side effects related to authData change
+  }, [authData]);
 
   if (portalError) {
     return (
@@ -35,7 +49,8 @@ export default function ParentComponent() {
     <div>
       {isPortalReady && (
         <>
-          <WalletBalanceCard />
+          <WalletBalanceCard setAuthData={setAuthData} />
+          {authData && <p>Connected Broker</p>}
         </>
       )}
     </div>

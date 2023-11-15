@@ -22,7 +22,7 @@ const MeshModal = ({
         clientId: CLIENT_ID,
         onBrokerConnected: (authData) => {
           console.info('FRONT SUCCESS', authData);
-         // onSuccess(authData);
+          onSuccess(authData);
         },
         onEvent: (event) => {
           console.info('FRONT EVENT', event);
