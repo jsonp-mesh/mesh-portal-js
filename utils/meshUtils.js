@@ -21,3 +21,7 @@ export const handleMeshSuccess = (newAuthData) => {
   console.log('success', newAuthData);
   localStorage.setItem('authData', JSON.stringify(newAuthData));
 };
+
+export const handleTransferFinished = (handleTransferFinished) => {
+  console.log(handleTransferFinished);
+};

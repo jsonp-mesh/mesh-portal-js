@@ -12,8 +12,8 @@ export default async function handler(req, res) {
     transferOptions: {
       toAddresses: [
         {
-          symbol: 'USDC',
-          address: '0x3706995bbe1810fc30beec089132e5b38dd675a7',
+          symbol: 'ETH',
+          address: '0x3706995bbe1810fc30beec089132e5b38dd675a7', //portal Addres
           networkId: 'e3c7fdd8-b1fc-4e51-85ae-bb276e075611', // eth network id
         },
       ],
@@ -37,11 +37,8 @@ export default async function handler(req, res) {
       const errorMessage = `Failed to retrieve or generate catalogLink. Status: ${getCatalogLink.status} - ${getCatalogLink.statusText}. Message: ${getCatalogLink.message}`;
       throw new Error(errorMessage.displayMessage);
     }
-    console.log('getCatalogLink', getCatalogLink);
     return res.status(200).json(getCatalogLink.data);
   } catch (error) {
-    console.error('Error response:', error.response);
-
     res.status(500).json({
       error: `Something went wrong: ${error.message}`,
     });

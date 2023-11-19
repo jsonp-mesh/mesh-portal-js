@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Button, Card, CardContent, Typography, Box } from '@mui/material';
+import TransactionsDashboard from './Transactions';
 import { PortalContext } from '../context/PortalContext';
 import MeshModal from './MeshModal';
 import {
   handleOpenMeshModal,
   handleExit,
   handleMeshSuccess,
+  handleTransferFinished,
 } from '../utils/meshUtils';
 import SendModal from './SendModal';
 
@@ -24,6 +26,7 @@ export default function WalletBalanceCard({ setAuthData }) {
       const fetchWalletBalance = async () => {
         try {
           const walletInfo = await portalInstance.getBalances();
+
           setWalletBalance(walletInfo[0].balance);
           setSmartContractAddress(walletInfo[0].contractAddress);
         } catch (err) {
@@ -124,6 +127,7 @@ export default function WalletBalanceCard({ setAuthData }) {
           </Box>
         </CardContent>
       </Card>
+      <TransactionsDashboard />
       {openMeshModal && (
         <MeshModal
           open="true"
@@ -131,7 +135,7 @@ export default function WalletBalanceCard({ setAuthData }) {
           link={catalogLink}
           onSuccess={handleSuccess}
           onExit={handleExit}
-          //transferFinished={handleTransferFinished}
+          transferFinished={handleTransferFinished}
         />
       )}
       {openSendModal && (
