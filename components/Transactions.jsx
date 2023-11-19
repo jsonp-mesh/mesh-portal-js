@@ -26,6 +26,7 @@ import {
   Button,
   TableFooter,
   TablePagination,
+  Typography,
   Paper,
   CircularProgress,
   PropTypes,
@@ -76,6 +77,9 @@ function TransactionsDashboard() {
     console.log('right before rendering: ', transactions);
     return (
       <div style={{ overflowX: 'auto' }}>
+        <Typography variant="h5" gutterBottom>
+          Transactions:
+        </Typography>
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 950 }} aria-label="Transactions table">
             <TableHead>
@@ -84,7 +88,7 @@ function TransactionsDashboard() {
                   <TableCell key={header}>{header}</TableCell>
                 ))}
               </TableRow>
-            </TableHead>
+            </TableHead>{' '}
             <TableBody>
               {currentPageTransactions.map((transaction, index) => (
                 <TableRow
