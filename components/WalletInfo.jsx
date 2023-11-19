@@ -1,5 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Button, Card, CardContent, Typography, Box } from '@mui/material';
+import {
+  Button,
+  Card,
+  CardContent,
+  Typography,
+  Box,
+  PropTypes,
+} from '@mui/material';
 import TransactionsDashboard from './Transactions';
 import { PortalContext } from '../context/PortalContext';
 import MeshModal from './MeshModal';
@@ -11,7 +18,7 @@ import {
 } from '../utils/meshUtils';
 import SendModal from './SendModal';
 
-export default function WalletBalanceCard({ setAuthData }) {
+function WalletBalanceCard({ setAuthData }) {
   const { portalInstance, walletAddress } = useContext(PortalContext);
   const [walletBalance, setWalletBalance] = useState(null);
   const [smartContractAddress, setSmartContractAddress] = useState(null);
@@ -150,3 +157,8 @@ export default function WalletBalanceCard({ setAuthData }) {
     </div>
   );
 }
+
+WalletBalanceCard.propTypes = {
+  setAuthData: PropTypes?.func,
+};
+export default WalletBalanceCard;
