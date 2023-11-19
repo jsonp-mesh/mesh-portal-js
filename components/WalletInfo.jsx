@@ -57,8 +57,8 @@ function WalletBalanceCard({ setAuthData }) {
   }
 
   const cardStyle = {
-    backgroundColor: 'rgba(26, 32, 44, 0.8)', // Semi-transparent dark background        color: '#e2e8f0', // Light text for contrast
-    color: '#e2e8f0',
+    backgroundColor: '#9e9796', // Semi-transparent dark background        color: '#e2e8f0', // Light text for contrast
+    color: '#171616',
     border: '2px solid #2d3748',
     boxShadow: '0 4px 10px rgba(0, 0, 0, 0.3)',
   };
@@ -98,20 +98,44 @@ function WalletBalanceCard({ setAuthData }) {
   return (
     <div>
       <Card style={cardStyle}>
-        <CardContent>
-          <Typography variant="h6" style={fieldStyle}>
-            Wallet Address: {walletAddress}
-          </Typography>
-          <Typography variant="body2" style={fieldStyle}>
-            Wallet Balance: $
-            {walletBalance ? walletBalance : 'No balance data available'}
-          </Typography>
-          <Typography variant="body2" style={fieldStyle}>
-            Smart Contract Address:{' '}
-            {smartContractAddress
-              ? smartContractAddress
-              : 'No smart contract address data available'}
-          </Typography>
+        <CardContent style={{ border: '2px solid #2d3748' }}>
+          <Box
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              ...fieldStyle,
+            }}
+          >
+            <Typography variant="h6">Wallet Address:</Typography>
+            <Typography variant="h6">{walletAddress}</Typography>
+          </Box>
+          <Box
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              ...fieldStyle,
+            }}
+          >
+            <Typography variant="h6">Wallet Balance:</Typography>
+            <Typography variant="h6">
+              ${walletBalance ? walletBalance : 'No balance data available'}
+            </Typography>
+          </Box>
+          <Box
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              ...fieldStyle,
+            }}
+          >
+            <Typography variant="h6">Smart Contract Address:</Typography>
+            <Typography variant="h6">
+              {smartContractAddress
+                ? smartContractAddress
+                : 'No smart contract address data available'}
+            </Typography>
+          </Box>
+
           <Box display="flex" justifyContent="flex-end">
             <Button
               style={buttonStyle}

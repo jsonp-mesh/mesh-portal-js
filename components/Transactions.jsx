@@ -77,7 +77,7 @@ function TransactionsDashboard() {
     console.log('right before rendering: ', transactions);
     return (
       <div style={{ overflowX: 'auto' }}>
-        <Typography variant="h5" gutterBottom>
+        <Typography variant="h5" gutterBottom style={{ padding: '10px' }}>
           Transactions:
         </Typography>
         <TableContainer component={Paper}>
