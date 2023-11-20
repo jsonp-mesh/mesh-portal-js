@@ -24,8 +24,7 @@ const SendModal = ({ open, onClose, onSuccess, onExit, authData }) => {
     console.log(authData);
     const getDepositDetails = async () => {
       const payload = {
-        authToken:
-          'AuHojC9mTyKmbAGCJ0GmYg==.Tf0FVXwBC0cDEajTD6aQgXpqhyMyGRGc+2kLVGd3OQgZTZL0z0Z7OzcTH+FosRnPbJSBwNs5/0TdO6yUsjQgk+m7Q2gTEmiz5s827pVoBm2COy6QKZs/ICavMfevOkoovB+qVsKLoz2eOQDLhZtNM7EftDWuhKZoE7ljv6WpaXUBRC9iR9qUYhCwodkKhwIPfO7QvwJXR6EcNwjo4h/Uf5XAvbzVLFVqHF02hG6/Y/I=',
+        authToken: 'xxx',
         type: 'coinbase',
         symbol: 'ETH',
         chain: 'ethereum',
