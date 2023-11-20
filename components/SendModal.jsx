@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { PortalContext } from '../context/PortalContext';
 
 import {
@@ -12,28 +12,52 @@ import {
 } from '@mui/material';
 import { buildTransaction } from '../utils/portalUtils';
 
-const SendModal = ({ open, onClose, onSuccess, onExit }) => {
+const SendModal = ({ open, onClose, onSuccess, onExit, authData }) => {
   const { portalInstance } = useContext(PortalContext);
 
   const [amount, setAmount] = useState('1');
-  const [recipient, setRecipient] = useState(
-    '0xBc4174D1E09b59a108964d0417110591FD7a156c'
-  );
+  const [recipient, setRecipient] = useState('loading...');
   const [signing, setSigning] = useState(false);
   const [transactionMessage, setTransactionMessage] = useState('');
 
+  useEffect(() => {
+    console.log(authData);
+    const getDepositDetails = async () => {
+      const payload = {
+        authToken:
+          'AuHojC9mTyKmbAGCJ0GmYg==.Tf0FVXwBC0cDEajTD6aQgXpqhyMyGRGc+2kLVGd3OQgZTZL0z0Z7OzcTH+FosRnPbJSBwNs5/0TdO6yUsjQgk+m7Q2gTEmiz5s827pVoBm2COy6QKZs/ICavMfevOkoovB+qVsKLoz2eOQDLhZtNM7EftDWuhKZoE7ljv6WpaXUBRC9iR9qUYhCwodkKhwIPfO7QvwJXR6EcNwjo4h/Uf5XAvbzVLFVqHF02hG6/Y/I=',
+        type: 'coinbase',
+        symbol: 'ETH',
+        chain: 'ethereum',
+      };
+      try {
+        const fetchAddress = await fetch('/api/transfers/deposits', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(payload),
+        });
+
+        const response = await fetchAddress.json();
+
+        setRecipient(response.content.address);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getDepositDetails();
+  }, []);
+
   const handleSend = async () => {
     setSigning(true);
-    console.log('Sending', amount, 'to', recipient);
-
-    const transaction = await buildTransaction(recipient, amount);
+    console.log('Sending', amount, 'to', recipient, portalInstance.address);
+    const address = portalInstance.address;
+    const transaction = await buildTransaction(recipient, amount, address);
 
     try {
+      //const signature = await portalInstance.simulateTransaction(transaction);
       const signature = await portalInstance.simulateTransaction(transaction);
-      //const signature = await portalInstance.ethSendTransaction(transaction);
-
-      console.log('Transaction simulation results:', signature);
-
       // Check the signature object for errors
       if (signature.error) {
         console.error('Transaction Error:', signature.error);
@@ -49,6 +73,8 @@ const SendModal = ({ open, onClose, onSuccess, onExit }) => {
       }
     } catch (error) {
       console.error('Transaction error:', error);
+      // console.log('Transaction simulation results:', signature);
+
       if (error.requestError) {
         setTransactionMessage(
           'Transaction failed: ' + error.requestError.message

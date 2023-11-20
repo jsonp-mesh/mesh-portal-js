@@ -49,7 +49,7 @@ export default function ParentComponent() {
     <div>
       {isPortalReady && (
         <>
-          <WalletBalanceCard setAuthData={setAuthData} />
+          <WalletBalanceCard setAuthData={setAuthData} authData={authData} />
           {authData && <p>Connected Broker</p>}
         </>
       )}

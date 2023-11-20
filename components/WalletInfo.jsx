@@ -18,10 +18,9 @@ import {
 } from '../utils/meshUtils';
 import SendModal from './SendModal';
 
-function WalletBalanceCard({ setAuthData }) {
+function WalletBalanceCard({ setAuthData, authData }) {
   const { portalInstance, walletAddress } = useContext(PortalContext);
   const [walletBalance, setWalletBalance] = useState(null);
-  const [smartContractAddress, setSmartContractAddress] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [openMeshModal, setOpenMeshModal] = useState(false);
@@ -32,10 +31,24 @@ function WalletBalanceCard({ setAuthData }) {
     if (portalInstance) {
       const fetchWalletBalance = async () => {
         try {
-          const walletInfo = await portalInstance.getBalances();
+          const response = await portalInstance.provider.request({
+            method: 'eth_getBalance',
+            params: [portalInstance.address, 'latest'],
+          });
 
-          setWalletBalance(walletInfo[0].balance);
-          setSmartContractAddress(walletInfo[0].contractAddress);
+          const weiBalance = BigInt(response);
+          const precision = 1000n; // Adjust for 3 decimal places
+          const weiToEth = 1000000000000000000n; // 10^18
+          const ethValue = (weiBalance * precision) / weiToEth; // Multiply before division
+
+          const ethValueString = ethValue.toString();
+          const decimalPosition = ethValueString.length - 3; // Adjust for 3 decimal places
+          const formattedEthValue =
+            ethValueString.slice(0, decimalPosition) +
+            '.' +
+            ethValueString.slice(decimalPosition);
+
+          setWalletBalance(formattedEthValue);
         } catch (err) {
           setError(err);
         } finally {
@@ -43,8 +56,6 @@ function WalletBalanceCard({ setAuthData }) {
         }
       };
       fetchWalletBalance();
-    } else {
-      setLoading(false);
     }
   }, [portalInstance]);
 
@@ -90,7 +101,6 @@ function WalletBalanceCard({ setAuthData }) {
   };
 
   const handleSuccess = async (newAuthData) => {
-    console.log(newAuthData);
     await setAuthData(newAuthData);
     handleMeshSuccess(newAuthData);
   };
@@ -118,35 +128,23 @@ function WalletBalanceCard({ setAuthData }) {
           >
             <Typography variant="h6">Wallet Balance:</Typography>
             <Typography variant="h6">
-              ${walletBalance ? walletBalance : 'No balance data available'}
-            </Typography>
-          </Box>
-          <Box
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              ...fieldStyle,
-            }}
-          >
-            <Typography variant="h6">Smart Contract Address:</Typography>
-            <Typography variant="h6">
-              {smartContractAddress
-                ? smartContractAddress
-                : 'No smart contract address data available'}
+              {walletBalance ? walletBalance : 'No balance data available'}
             </Typography>
           </Box>
 
           <Box display="flex" justifyContent="flex-end">
-            <Button
-              style={buttonStyle}
-              variant="contained"
-              color="secondary"
-              onClick={() =>
-                handleOpenMeshModal(setCatalogLink, setOpenMeshModal)
-              }
-            >
-              Deposit
-            </Button>
+            {authData && (
+              <Button
+                style={buttonStyle}
+                variant="contained"
+                color="secondary"
+                onClick={() =>
+                  handleOpenMeshModal(setCatalogLink, setOpenMeshModal)
+                }
+              >
+                Deposit
+              </Button>
+            )}
             <Button
               style={{ ...buttonStyle, marginLeft: '10px' }} // Add margin to separate the buttons
               variant="contained"
@@ -173,6 +171,7 @@ function WalletBalanceCard({ setAuthData }) {
         <SendModal
           open="true"
           onClose={() => setOpenSendModal(false)}
+          authData={authData}
           //onSuccess={handleSuccess}
           onExit={handleSendExit}
           //transferFinished={handleTransferFinished}

@@ -45,8 +45,6 @@ function TransactionsDashboard() {
         setLoadingTransactions(true);
         const fetchTransactions = await portalInstance.getTransactions();
 
-        console.log(fetchTransactions);
-
         setTransactions(fetchTransactions);
       } catch (error) {
         console.log('error', error);
@@ -74,7 +72,6 @@ function TransactionsDashboard() {
       (page + 1) * rowsPerPage
     );
 
-    console.log('right before rendering: ', transactions);
     return (
       <div style={{ overflowX: 'auto' }}>
         <Typography variant="h5" gutterBottom style={{ padding: '10px' }}>

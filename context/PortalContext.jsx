@@ -20,10 +20,9 @@ const PortalProvider = ({ children }) => {
       const portal = new Portal({
         apiKey: portalClientKey,
         autoApprove: process.env.NODE_ENV === 'development',
-        chainId: 5,
+        chainId: 5, // this can be changed
         gatewayConfig: gatewayConfig,
       });
-
       console.log('Setting portal instance', portal);
 
       setPortalInstance(portal);
