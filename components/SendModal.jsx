@@ -10,7 +10,7 @@ import {
   TextField,
   CircularProgress,
 } from '@mui/material';
-import { handleSimulateTransaction } from '../utils/portalUtils';
+import { buildTransaction } from '../utils/portalUtils';
 
 const SendModal = ({ open, onClose, onSuccess, onExit }) => {
   const { portalInstance } = useContext(PortalContext);
@@ -26,10 +26,12 @@ const SendModal = ({ open, onClose, onSuccess, onExit }) => {
     setSigning(true);
     console.log('Sending', amount, 'to', recipient);
 
-    const transaction = await handleSimulateTransaction(recipient, amount);
+    const transaction = await buildTransaction(recipient, amount);
 
     try {
       const signature = await portalInstance.simulateTransaction(transaction);
+      //const signature = await portalInstance.ethSendTransaction(transaction);
+
       console.log('Transaction simulation results:', signature);
 
       // Check the signature object for errors
