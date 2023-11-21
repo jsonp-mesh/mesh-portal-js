@@ -21,10 +21,9 @@ const SendModal = ({ open, onClose, onSuccess, onExit, authData }) => {
   const [transactionMessage, setTransactionMessage] = useState('');
 
   useEffect(() => {
-    console.log(authData);
     const getDepositDetails = async () => {
       const payload = {
-        authToken: 'xxx',
+        authToken: authData.accessToken.accountTokens[0].accessToken,
         type: 'coinbase',
         symbol: 'ETH',
         chain: 'ethereum',
