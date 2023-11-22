@@ -1,4 +1,12 @@
-export const handleOpenMeshModal = async (setCatalogLink, setOpenMeshModal) => {
+export const handleOpenMeshModal = async (
+  setCatalogLink,
+  setOpenMeshModal,
+  authData,
+  setAuthModal
+) => {
+  if (authData) {
+    setAuthModal(true);
+  }
   try {
     const link = await fetch('/api/transfers/linkToken');
 

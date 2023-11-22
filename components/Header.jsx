@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react'; // Import useEffect here
+import React, { useEffect, useContext } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
@@ -17,7 +17,7 @@ function Header() {
 
   const handleChange = (event) => {
     console.log(event.target.value);
-    initiatePortalInstance(event.target.value); // Convert string to number if necessary
+    initiatePortalInstance(event.target.value);
   };
 
   return (
@@ -32,10 +32,11 @@ function Header() {
             onChange={handleChange}
             displayEmpty
             inputProps={{ 'aria-label': 'Without label' }}
+            style={{ color: '#fff' }}
           >
-            <MenuItem value={1}>Chain 1</MenuItem>{' '}
+            <MenuItem value={1}>Mainnet</MenuItem>{' '}
             {/* Ensure these are numbers */}
-            <MenuItem value={5}>Chain 5</MenuItem>
+            <MenuItem value={5}>Testnet</MenuItem>
           </Select>
         </Box>
       </Toolbar>

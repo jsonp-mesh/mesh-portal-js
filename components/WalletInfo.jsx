@@ -1,12 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import {
-  Button,
-  Card,
-  CardContent,
-  Typography,
-  Box,
-  PropTypes,
-} from '@mui/material';
+import { Button, Card, CardContent, Typography, Box } from '@mui/material';
 import TransactionsDashboard from './Transactions';
 import { PortalContext } from '../context/PortalContext';
 import MeshModal from './MeshModal';
@@ -17,6 +10,7 @@ import {
   handleTransferFinished,
 } from '../utils/meshUtils';
 import SendModal from './SendModal';
+import PropTypes from 'prop-types';
 
 function WalletBalanceCard({ setAuthData, authData }) {
   const { portalInstance, walletAddress, isPortalReady } =
@@ -27,6 +21,7 @@ function WalletBalanceCard({ setAuthData, authData }) {
   const [openMeshModal, setOpenMeshModal] = useState(false);
   const [catalogLink, setCatalogLink] = useState(null);
   const [openSendModal, setOpenSendModal] = useState(false);
+  const [authModal, setAuthModal] = useState(false);
 
   useEffect(() => {
     if (portalInstance) {
@@ -61,7 +56,7 @@ function WalletBalanceCard({ setAuthData, authData }) {
         fetchWalletBalance();
       }
     }
-  }, [portalInstance, portalInstance.address]);
+  }, [portalInstance, portalInstance.address, authData]);
 
   if (loading) {
     return <Typography>Loading wallet balance...</Typography>;
@@ -135,29 +130,47 @@ function WalletBalanceCard({ setAuthData, authData }) {
               {walletBalance ? walletBalance : 'No balance data available'}
             </Typography>
           </Box>
-
-          <Box display="flex" justifyContent="flex-end">
-            {authData && (
+          {authData ? (
+            <Box display="flex" justifyContent="flex-end">
               <Button
                 style={buttonStyle}
+                variant="contained"
+                color="secondary"
+                onClick={() =>
+                  handleOpenMeshModal(
+                    setCatalogLink,
+                    setOpenMeshModal,
+                    authData,
+                    setAuthModal
+                  )
+                }
+              >
+                Deposit
+              </Button>
+
+              <Button
+                style={{ ...buttonStyle, marginLeft: '10px' }}
+                variant="contained"
+                color="secondary"
+                onClick={withdraw}
+              >
+                Withdraw
+              </Button>
+            </Box>
+          ) : (
+            <Box display="flex" justifyContent="flex-end">
+              <Button
+                style={{ ...buttonStyle, marginLeft: '10px' }}
                 variant="contained"
                 color="secondary"
                 onClick={() =>
                   handleOpenMeshModal(setCatalogLink, setOpenMeshModal)
                 }
               >
-                Deposit
+                Connect to Broker
               </Button>
-            )}
-            <Button
-              style={{ ...buttonStyle, marginLeft: '10px' }} // Add margin to separate the buttons
-              variant="contained"
-              color="secondary"
-              onClick={withdraw}
-            >
-              Withdraw
-            </Button>
-          </Box>
+            </Box>
+          )}
         </CardContent>
       </Card>
       <TransactionsDashboard />
@@ -169,6 +182,7 @@ function WalletBalanceCard({ setAuthData, authData }) {
           onSuccess={handleSuccess}
           onExit={handleExit}
           transferFinished={handleTransferFinished}
+          {...(authModal && { authData })}
         />
       )}
       {openSendModal && (
@@ -187,5 +201,6 @@ function WalletBalanceCard({ setAuthData, authData }) {
 
 WalletBalanceCard.propTypes = {
   setAuthData: PropTypes?.func,
+  authData: PropTypes?.object,
 };
 export default WalletBalanceCard;

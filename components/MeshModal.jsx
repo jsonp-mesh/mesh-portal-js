@@ -12,38 +12,56 @@ const MeshModal = ({
   onExit,
   transferFinished,
   pageLoaded,
+  authData,
 }) => {
   const [frontConnection, setFrontConnection] = useState(null);
   const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID;
+  console.log('authData', authData?.accessToken?.accountTokens[0]);
 
   useEffect(() => {
-    setFrontConnection(
-      createFrontConnection({
-        clientId: CLIENT_ID,
-        onBrokerConnected: (authData) => {
-          console.info('FRONT SUCCESS', authData);
-          onSuccess(authData);
-        },
-        onEvent: (event) => {
-          console.info('FRONT EVENT', event);
-        },
+    const connectionOptions = {
+      clientId: CLIENT_ID,
+      onBrokerConnected: (authData) => {
+        console.info('FRONT SUCCESS', authData);
+        onSuccess(authData);
+      },
+      onEvent: (event) => {
+        console.info('FRONT EVENT', event);
+      },
+      onExit: (error) => {
+        if (error) {
+          console.error(`[FRONT ERROR] ${error}`);
+        }
+        if (onExit) {
+          console.info('FRONT EXIT');
+          onExit();
+        }
+      },
+      onTransferFinished: (transfer) => {
+        console.info('TRANSFER FINISHED', transfer);
+        transferFinished(transfer);
+      },
+    };
 
-        onExit: (error) => {
-          if (error) {
-            console.error(`[FRONT ERROR] ${error}`);
-          }
+    if (
+      authData &&
+      authData.accessToken &&
+      authData.accessToken.accountTokens &&
+      authData.accessToken.accountTokens.length > 0
+    ) {
+      connectionOptions.accessTokens = [
+        {
+          accountId: authData.accessToken.accountTokens[0].account.accountId,
+          accountName:
+            authData.accessToken.accountTokens[0].account.accountName,
+          accessToken: authData.accessToken.accountTokens[0].accessToken,
+          brokerType: authData.accessToken.brokerType,
+          brokerName: authData.accessToken.brokerName,
+        },
+      ];
+    }
 
-          if (onExit) {
-            console.info('FRONT EXIT');
-            onExit();
-          }
-        },
-        onTransferFinished: (transfer) => {
-          console.info('TRANSFER FINISHED', transfer);
-          transferFinished(transfer);
-        },
-      })
-    );
+    setFrontConnection(createFrontConnection(connectionOptions));
   }, []);
 
   useEffect(() => {
@@ -72,6 +90,7 @@ MeshModal.propTypes = {
   transferFinished: PropTypes.func,
   setPageLoaded: PropTypes.func,
   pageLoaded: PropTypes.bool.isRequired,
+  authData: PropTypes.object,
 };
 
 export default MeshModal;
