@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { PortalContext } from '../context/PortalContext';
+import PropTypes from 'prop-types';
 
 import {
   Dialog,
@@ -12,7 +13,7 @@ import {
 } from '@mui/material';
 import { buildTransaction } from '../utils/portalUtils';
 
-const SendModal = ({ open, onClose, onSuccess, onExit, authData }) => {
+const SendModal = ({ open, onClose, authData }) => {
   const { portalInstance } = useContext(PortalContext);
 
   const [amount, setAmount] = useState('1');
@@ -20,13 +21,17 @@ const SendModal = ({ open, onClose, onSuccess, onExit, authData }) => {
   const [signing, setSigning] = useState(false);
   const [transactionMessage, setTransactionMessage] = useState('');
 
+  const exchange = process.env.NEXT_PUBLIC_EXCHANGE;
+  const chain = process.env.NEXT_PUBLIC_CHAIN;
+  const symbol = process.env.NEXT_PUBLIC_SYMBOL;
+
   useEffect(() => {
     const getDepositDetails = async () => {
       const payload = {
         authToken: authData.accessToken.accountTokens[0].accessToken,
-        type: 'coinbase',
-        symbol: 'ETH',
-        chain: 'ethereum',
+        type: exchange,
+        symbol,
+        chain,
       };
       try {
         const fetchAddress = await fetch('/api/transfers/deposits', {
@@ -70,7 +75,6 @@ const SendModal = ({ open, onClose, onSuccess, onExit, authData }) => {
       }
     } catch (error) {
       console.error('Transaction error:', error);
-      // console.log('Transaction simulation results:', signature);
 
       if (error.requestError) {
         setTransactionMessage(
@@ -126,6 +130,14 @@ const SendModal = ({ open, onClose, onSuccess, onExit, authData }) => {
       )}
     </Dialog>
   );
+};
+
+SendModal.propTypes = {
+  open: PropTypes.bool,
+  onClose: PropTypes.func,
+  onSuccess: PropTypes.func,
+  onExit: PropTypes.func,
+  authData: PropTypes.object,
 };
 
 export default SendModal;
