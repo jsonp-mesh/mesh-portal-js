@@ -19,7 +19,8 @@ import {
 import SendModal from './SendModal';
 
 function WalletBalanceCard({ setAuthData, authData }) {
-  const { portalInstance, walletAddress } = useContext(PortalContext);
+  const { portalInstance, walletAddress, isPortalReady } =
+    useContext(PortalContext);
   const [walletBalance, setWalletBalance] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -31,6 +32,7 @@ function WalletBalanceCard({ setAuthData, authData }) {
     if (portalInstance) {
       const fetchWalletBalance = async () => {
         try {
+          console.log('Fetching wallet balance', portalInstance.address);
           const response = await portalInstance.provider.request({
             method: 'eth_getBalance',
             params: [portalInstance.address, 'latest'],
@@ -55,9 +57,11 @@ function WalletBalanceCard({ setAuthData, authData }) {
           setLoading(false);
         }
       };
-      fetchWalletBalance();
+      if (isPortalReady && portalInstance.address) {
+        fetchWalletBalance();
+      }
     }
-  }, [portalInstance]);
+  }, [portalInstance, portalInstance.address]);
 
   if (loading) {
     return <Typography>Loading wallet balance...</Typography>;

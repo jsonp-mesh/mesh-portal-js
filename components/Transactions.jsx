@@ -33,7 +33,7 @@ import {
 } from '@mui/material';
 
 function TransactionsDashboard() {
-  const { portalInstance } = useContext(PortalContext);
+  const { portalInstance, chain } = useContext(PortalContext);
   const [transactions, setTransactions] = useState([]);
   const [loadingTransactions, setLoadingTransactions] = useState(false);
   const [showTransactionsTable, setShowTransactionsTable] = useState(false);
@@ -54,7 +54,7 @@ function TransactionsDashboard() {
     };
 
     getTransactions();
-  }, []);
+  }, [chain]);
 
   if (loadingTransactions) {
     return <CircularProgress />;

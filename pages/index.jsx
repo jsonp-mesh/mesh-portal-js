@@ -2,22 +2,20 @@ import React, { useContext, useEffect, useState } from 'react';
 import { CircularProgress, Typography, Box } from '@mui/material';
 import { PortalContext } from '../context/PortalContext';
 import WalletBalanceCard from '../components/WalletInfo';
+import Header from '../components/Header';
 
 export default function ParentComponent() {
   const { isPortalReady, portalError } = useContext(PortalContext);
   const [authData, setAuthData] = useState(() => {
     if (typeof window !== 'undefined') {
-      // Initialize state from localStorage only in the browser
       const storedAuthData = localStorage.getItem('authData');
       return storedAuthData ? JSON.parse(storedAuthData) : null;
     }
-    return null; // Return a default value (null) for server-side rendering
+    return null;
   });
 
   useEffect(() => {
-    // Effect to run when authData state changes
     console.log('authData has been updated:', authData);
-    // Any side effects related to authData change
   }, [authData]);
 
   if (portalError) {
@@ -30,18 +28,21 @@ export default function ParentComponent() {
 
   if (!isPortalReady) {
     return (
-      <Box
-        display="flex"
-        flexDirection="column"
-        alignItems="center"
-        justifyContent="center"
-        style={{ minHeight: '100vh' }}
-      >
-        <CircularProgress color="primary" />
-        <Typography variant="h6" style={{ marginTop: 20 }}>
-          Loading Wallet...
-        </Typography>
-      </Box>
+      <>
+        <Header />
+        <Box
+          display="flex"
+          flexDirection="column"
+          alignItems="center"
+          justifyContent="center"
+          style={{ minHeight: '100vh' }}
+        >
+          <CircularProgress color="primary" />
+          <Typography variant="h6" style={{ marginTop: 20 }}>
+            Loading Wallet...
+          </Typography>
+        </Box>
+      </>
     );
   }
 
@@ -49,6 +50,7 @@ export default function ParentComponent() {
     <div>
       {isPortalReady && (
         <>
+          <Header />
           <WalletBalanceCard setAuthData={setAuthData} authData={authData} />
           {authData && <p>Connected Broker</p>}
         </>
