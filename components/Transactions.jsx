@@ -61,7 +61,7 @@ function TransactionsDashboard() {
   }
 
   const renderTable = (rows, headers) => {
-    const rowsPerPage = 20;
+    const rowsPerPage = 10;
 
     const handleChangePage = (event, newPage) => {
       setPage(newPage);
