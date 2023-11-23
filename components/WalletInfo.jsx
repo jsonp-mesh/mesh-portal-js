@@ -141,7 +141,8 @@ function WalletBalanceCard({ setAuthData, authData }) {
                     setCatalogLink,
                     setOpenMeshModal,
                     authData,
-                    setAuthModal
+                    setAuthModal,
+                    'transfer'
                   )
                 }
               >
@@ -164,7 +165,12 @@ function WalletBalanceCard({ setAuthData, authData }) {
                 variant="contained"
                 color="secondary"
                 onClick={() =>
-                  handleOpenMeshModal(setCatalogLink, setOpenMeshModal)
+                  handleOpenMeshModal(
+                    setCatalogLink,
+                    setOpenMeshModal,
+                    authData,
+                    setAuthModal
+                  )
                 }
               >
                 Connect to Broker
@@ -182,7 +188,7 @@ function WalletBalanceCard({ setAuthData, authData }) {
           onSuccess={handleSuccess}
           onExit={handleExit}
           transferFinished={handleTransferFinished}
-          {...(authModal && { authData })}
+          authData={authData}
         />
       )}
       {openSendModal && (
