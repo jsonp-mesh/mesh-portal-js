@@ -1,5 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { PortalContext } from '../context/PortalContext';
+import { useRouter } from 'next/router';
+
 import PropTypes from 'prop-types';
 
 import {
@@ -25,6 +27,8 @@ const SendModal = ({ open, onClose, authData }) => {
   const chain = process.env.NEXT_PUBLIC_CHAIN;
   const symbol = process.env.NEXT_PUBLIC_SYMBOL;
 
+  const router = useRouter(); // Next.js router
+
   useEffect(() => {
     const getDepositDetails = async () => {
       const payload = {
@@ -47,10 +51,13 @@ const SendModal = ({ open, onClose, authData }) => {
         setRecipient(response.content.address);
       } catch (err) {
         console.log(err);
+        localStorage.removeItem('authData');
+
+        router.push('/');
       }
     };
     getDepositDetails();
-  }, []);
+  }, [router]);
 
   const handleSend = async () => {
     setSigning(true);
