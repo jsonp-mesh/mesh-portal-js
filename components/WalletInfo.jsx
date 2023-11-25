@@ -67,26 +67,26 @@ function WalletBalanceCard({ setAuthData, authData }) {
   }
 
   const cardStyle = {
-    backgroundColor: '#9e9796', // Semi-transparent dark background        color: '#e2e8f0', // Light text for contrast
+    backgroundColor: '#9e9796',
     color: '#171616',
     border: '2px solid #2d3748',
     boxShadow: '0 4px 10px rgba(0, 0, 0, 0.3)',
   };
 
   const buttonStyle = {
-    marginTop: '20px', // Spacing from the last text element
-    backgroundColor: '#F6B94C', // A strong color for the button
+    marginTop: '20px',
+    backgroundColor: '#F6B94C',
     '&:hover': {
-      backgroundColor: '#388e3c', // Darken on hover
+      backgroundColor: '#388e3c',
     },
   };
 
   const fieldStyle = {
-    borderBottom: '1px solid #ddd', // Underline for each field
-    paddingBottom: '8px', // Space below the text
-    marginBottom: '8px', // Space between fields
-    display: 'flex', // Use flexbox
-    justifyContent: 'space-between', // Space between label and value
+    borderBottom: '1px solid #ddd',
+    paddingBottom: '8px',
+    marginBottom: '8px',
+    display: 'flex',
+    justifyContent: 'space-between',
   };
 
   const withdraw = async () => {
@@ -142,7 +142,8 @@ function WalletBalanceCard({ setAuthData, authData }) {
                     setOpenMeshModal,
                     authData,
                     setAuthModal,
-                    'transfer'
+                    'transfer',
+                    portalInstance.address
                   )
                 }
               >

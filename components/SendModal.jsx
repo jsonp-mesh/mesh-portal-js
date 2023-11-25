@@ -27,7 +27,7 @@ const SendModal = ({ open, onClose, authData }) => {
   const chain = process.env.NEXT_PUBLIC_CHAIN;
   const symbol = process.env.NEXT_PUBLIC_SYMBOL;
 
-  const router = useRouter(); // Next.js router
+  const router = useRouter();
 
   useEffect(() => {
     const getDepositDetails = async () => {

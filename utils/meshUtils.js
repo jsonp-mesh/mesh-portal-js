@@ -3,13 +3,14 @@ export const handleOpenMeshModal = async (
   setOpenMeshModal,
   authData,
   setAuthModal,
-  type = 'authorization'
+  type = 'authorization',
+  address
 ) => {
-  let url = '/api/transfers/linkToken?authOnly=false';
+  let url = `/api/transfers/linkToken?authModal=false&address=${address}`;
 
   if (!authData && type === 'authorization') {
     setAuthModal(true);
-    url = '/api/transfers/linkToken?authOnly=true';
+    url = '/api/transfers/linkToken?authModal=true';
   }
   try {
     const link = await fetch(url);

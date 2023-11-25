@@ -2,7 +2,7 @@ import { FrontApi } from '@front-finance/api';
 
 export default async function handler(req, res) {
   const { PROD_API_KEY, MESH_API_URL, CLIENT_ID } = process.env;
-  const authModal = req.query.authOnly;
+  const { authModal, address } = req.query;
 
   if (req.method !== 'GET') {
     return res.status(405).json({ error: 'Method not allowed' });
@@ -13,19 +13,17 @@ export default async function handler(req, res) {
   };
 
   if (authModal === 'false' || authModal === undefined) {
-    console.log('calling link with xfer options');
     bodyObject.transferOptions = {
       toAddresses: [
         {
           symbol: 'ETH',
-          address: '0x3706995bbe1810fc30beec089132e5b38dd675a7', //portal Address
-          networkId: 'e3c7fdd8-b1fc-4e51-85ae-bb276e075611', // eth network id
+          address: address, //portal Address
+          networkId: 'e3c7fdd8-b1fc-4e51-85ae-bb276e075611', // eth mesh UUID
         },
       ],
     };
   }
 
-  console.log(bodyObject);
   const api = new FrontApi({
     baseURL: MESH_API_URL,
     headers: {
