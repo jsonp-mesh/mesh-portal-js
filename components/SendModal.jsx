@@ -15,7 +15,7 @@ import {
 } from '@mui/material';
 import { buildTransaction } from '../utils/portalUtils';
 
-const SendModal = ({ open, onClose, authData }) => {
+const SendModal = ({ open, onClose, authData, setOpenSendModal }) => {
   const { portalInstance } = useContext(PortalContext);
 
   const [amount, setAmount] = useState('1');
@@ -52,16 +52,15 @@ const SendModal = ({ open, onClose, authData }) => {
       } catch (err) {
         console.log(err);
         localStorage.removeItem('authData');
-
+        setOpenSendModal(false);
         router.push('/');
       }
     };
     getDepositDetails();
-  }, [router]);
+  }, []);
 
   const handleSend = async () => {
     setSigning(true);
-    console.log('Sending', amount, 'to', recipient, portalInstance.address);
     const address = portalInstance.address;
     const transaction = await buildTransaction(recipient, amount, address);
 
@@ -75,7 +74,6 @@ const SendModal = ({ open, onClose, authData }) => {
           'Request Error: ' + signature.requestError.message
         );
       } else {
-        console.log('Transaction Successful');
         setTransactionMessage('Transaction successful!');
       }
     } catch (error) {
@@ -143,6 +141,7 @@ SendModal.propTypes = {
   onSuccess: PropTypes.func,
   onExit: PropTypes.func,
   authData: PropTypes.object,
+  setOpenSendModal: PropTypes.func,
 };
 
 export default SendModal;

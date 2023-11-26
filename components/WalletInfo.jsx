@@ -94,8 +94,6 @@ function WalletBalanceCard({ setAuthData, authData }) {
   };
 
   const handleSendExit = () => {
-    console.log('Send Modal closed');
-
     setOpenSendModal(false);
   };
 
@@ -155,6 +153,7 @@ function WalletBalanceCard({ setAuthData, authData }) {
                 variant="contained"
                 color="secondary"
                 onClick={withdraw}
+                setOpenSendModal={setOpenSendModal}
               >
                 Withdraw
               </Button>
