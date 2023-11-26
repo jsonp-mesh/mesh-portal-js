@@ -1,5 +1,5 @@
 import React, { createContext, useState } from 'react';
-import Portal from '@portal-hq/web'; // Adjust the import according to your SDK
+import Portal from '@portal-hq/web';
 import PropTypes from 'prop-types';
 
 const defaultState = {};

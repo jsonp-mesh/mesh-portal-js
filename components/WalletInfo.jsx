@@ -34,12 +34,12 @@ function WalletBalanceCard({ setAuthData, authData }) {
           });
 
           const weiBalance = BigInt(response);
-          const precision = 1000n; // Adjust for 3 decimal places
-          const weiToEth = 1000000000000000000n; // 10^18
-          const ethValue = (weiBalance * precision) / weiToEth; // Multiply before division
+          const precision = 1000n;
+          const weiToEth = 1000000000000000000n;
+          const ethValue = (weiBalance * precision) / weiToEth;
 
           const ethValueString = ethValue.toString();
-          const decimalPosition = ethValueString.length - 3; // Adjust for 3 decimal places
+          const decimalPosition = ethValueString.length - 3;
           const formattedEthValue =
             ethValueString.slice(0, decimalPosition) +
             '.' +

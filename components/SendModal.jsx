@@ -66,10 +66,8 @@ const SendModal = ({ open, onClose, authData }) => {
     const transaction = await buildTransaction(recipient, amount, address);
 
     try {
-      //const signature = await portalInstance.simulateTransaction(transaction);
       const signature = await portalInstance.ethSendTransaction(transaction);
       if (signature.error) {
-        console.error('Transaction Error:', signature.error);
         setTransactionMessage('Transaction Error: ' + signature.error.message);
       } else if (signature.requestError) {
         console.error('Request Error:', signature.requestError.message);
