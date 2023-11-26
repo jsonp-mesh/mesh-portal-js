@@ -27,7 +27,6 @@ function WalletBalanceCard({ setAuthData, authData }) {
     if (portalInstance) {
       const fetchWalletBalance = async () => {
         try {
-          console.log('Fetching wallet balance', portalInstance.address);
           const response = await portalInstance.provider.request({
             method: 'eth_getBalance',
             params: [portalInstance.address, 'latest'],
