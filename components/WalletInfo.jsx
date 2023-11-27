@@ -152,7 +152,6 @@ function WalletBalanceCard({ setAuthData, authData }) {
                 variant="contained"
                 color="secondary"
                 onClick={withdraw}
-                setOpenSendModal={setOpenSendModal}
               >
                 Withdraw
               </Button>
@@ -198,6 +197,7 @@ function WalletBalanceCard({ setAuthData, authData }) {
           //onSuccess={handleSuccess}
           onExit={handleSendExit}
           //transferFinished={handleTransferFinished}
+          setOpenSendModal={setOpenSendModal}
         />
       )}
     </div>

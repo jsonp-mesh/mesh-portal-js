@@ -53,7 +53,8 @@ const SendModal = ({ open, onClose, authData, setOpenSendModal }) => {
         console.log(err);
         localStorage.removeItem('authData');
         setOpenSendModal(false);
-        router.push('/');
+        alert('your token expired');
+        router.reload();
       }
     };
     getDepositDetails();
