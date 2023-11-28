@@ -1,36 +1,58 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+Mesh Portal JS
+This application provides sample code that showcases  Mesh Link, Mesh RESTful APIs and the WAAS platform, Portal
 
-## Getting Started
+The application was built using React, NEXT JS (for Server side), and TailWind CSS.
 
-First, run the development server:
+Requires Node.js 16.x+
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Clone the repo git clone https://github.com/FrontFin/mesh-portal-js.git Getting started Init via npm:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+cd mesh-portal-js npm install
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+Access credentials
+Navigate to the Mesh Dashboard Settings page and pull the API credentials:
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+https://dashboard.meshconnect.com/company/keys
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+Navigate to Portal Dashboard to grab API keys:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+https://app.portalhq.io/settings
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Set environment variables:
+#Portal Credentials
+NEXT_PUBLIC_PORTAL_API_KEY={{your api key}}
+NEXT_PUBLIC_PORTAL_CLIENT_KEY={{your end users custodian key}} 
 
-## Deploy on Vercel
+#RPC Provider Credentials
+NEXT_PUBLIC_MAINNET_GATEWAY_URL={{your Mainnet RPC GATEWAY host with key in path (i.e., Infura)}}
+NEXT_PUBLIC_GOERLI_GATEWAY_URL={{your Goerli RPC GATEWAY host with key in path (i.e., Infura)}}
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+#Mesh Credentials
+NEXT_PUBLIC_MESH_API_URL=https://integration-api.getfront.com
+MESH_API_URL=https://integration-api.getfront.com
+PROD_API_KEY={{{Mesh API Secret Key}}}
+CLIENT_ID={{Mesh API Key}}
+NEXT_PUBLIC_CLIENT_ID={{Mesh API Key}}
+NEXT_PUBLIC_USER_ID={{random value to identify user (i.e. coinbase12345678)}} 
+NEXT_PUBLIC_MESH_NETWORK_ADDRESS=e3c7fdd8-b1fc-4e51-85ae-bb276e075611 // this is only for ETH.  To change, call our GET networks endpoint https://docs.meshconnect.com/reference/get_api-v1-transfers-managed-networks
+
+
+#Withdrawal Credentials (change as you see fit.)
+NEXT_PUBLIC_EXCHANGE=coinbase
+NEXT_PUBLIC_CHAIN=ethereum
+NEXT_PUBLIC_SYMBOL=ETH
+
+Add the following environment variables to a .env file in base of the repository:
+
+Validate the values contained in the .env file:
+
+```source .env echo NEXT_PUBLIC_CLIENT_ID ```
+
+Run the application
+```npm run dev ```
+
+Navigate to localhost:{{yourPort}}. You should see the app running.
+
+Generate a build npm run build

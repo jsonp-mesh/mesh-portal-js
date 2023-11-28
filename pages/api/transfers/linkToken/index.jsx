@@ -1,7 +1,14 @@
 import { FrontApi } from '@front-finance/api';
 
 export default async function handler(req, res) {
-  const { PROD_API_KEY, MESH_API_URL, CLIENT_ID } = process.env;
+  const {
+    PROD_API_KEY,
+    MESH_API_URL,
+    CLIENT_ID,
+    NEXT_PUBLIC_MESH_NETWORK_ADDRESS,
+    NEXT_PUBLIC_USER_ID,
+    NEXT_PUBLIC_SYMBOL,
+  } = process.env;
   const { authModal, address } = req.query;
 
   if (req.method !== 'GET') {
@@ -9,16 +16,16 @@ export default async function handler(req, res) {
   }
 
   const bodyObject = {
-    UserId: 'coin10244',
+    UserId: NEXT_PUBLIC_USER_ID,
   };
 
   if (authModal === 'false' || authModal === undefined) {
     bodyObject.transferOptions = {
       toAddresses: [
         {
-          symbol: 'ETH',
+          symbol: NEXT_PUBLIC_SYMBOL, //symbol for token xfer (i.e, ETH)
           address: address, //portal Address
-          networkId: 'e3c7fdd8-b1fc-4e51-85ae-bb276e075611', // eth mesh UUID
+          networkId: NEXT_PUBLIC_MESH_NETWORK_ADDRESS, // eth mesh UUID
         },
       ],
     };

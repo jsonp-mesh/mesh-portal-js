@@ -15,7 +15,7 @@ const PortalProvider = ({ children }) => {
 
   const initiatePortalInstance = (chainId) => {
     if (typeof window !== 'undefined') {
-      const portalClientKey = process.env.NEXT_PUBLIC_MESH_CLIENT_KEY;
+      const portalClientKey = process.env.NEXT_PORTAL_MESH_CLIENT_KEY;
       const gatewayConfig = {
         1: process.env.NEXT_PUBLIC_MAINNET_GATEWAY_URL,
         5: process.env.NEXT_PUBLIC_GOERLI_GATEWAY_URL,
