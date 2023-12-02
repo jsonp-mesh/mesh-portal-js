@@ -53,7 +53,7 @@ const SendModal = ({ open, onClose, authData, setOpenSendModal }) => {
         console.log(err);
         localStorage.removeItem('authData');
         setOpenSendModal(false);
-        alert('your token expired');
+        alert('your connected account token expired');
         router.reload();
       }
     };

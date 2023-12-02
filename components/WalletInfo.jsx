@@ -171,7 +171,7 @@ function WalletBalanceCard({ setAuthData, authData }) {
                   )
                 }
               >
-                Connect to Broker
+                Connect Account
               </Button>
             </Box>
           )}
