@@ -21,7 +21,7 @@ https://app.portalhq.io/settings
 
 Set environment variables:
 #Portal Credentials
-NEXT_PUBLIC_PORTAL_API_KEY={{your api key}}
+NEXT_PUBLIC_PORTAL_API_KEY={{your api key }} #HINT: contains dashes in key
 NEXT_PUBLIC_PORTAL_CLIENT_KEY={{your end users client identifier}} 
 
 #RPC Provider Credentials
@@ -32,15 +32,12 @@ NEXT_PUBLIC_GOERLI_GATEWAY_URL={{your Goerli RPC GATEWAY host with key in path (
 #Mesh Credentials
 NEXT_PUBLIC_MESH_API_URL=https://integration-api.getfront.com
 MESH_API_URL=https://integration-api.getfront.com
-PROD_API_KEY={{{Mesh API Secret Key}}}
-CLIENT_ID={{Mesh API Key}}
-NEXT_PUBLIC_CLIENT_ID={{Mesh API Key}}
-NEXT_PUBLIC_USER_ID={{random value to identify user (i.e. coinbase12345678)}} 
+MESH_API_KEY={{{Mesh API Secret Key}}}
+MESH_CLIENT_ID={{Mesh API Key}}
 NEXT_PUBLIC_MESH_NETWORK_ADDRESS=e3c7fdd8-b1fc-4e51-85ae-bb276e075611 // this is only for ETH.  To change, call our GET networks endpoint https://docs.meshconnect.com/reference/get_api-v1-transfers-managed-networks
 
 
 #Withdrawal Credentials (change as you see fit.)
-NEXT_PUBLIC_EXCHANGE=coinbase
 NEXT_PUBLIC_CHAIN=ethereum
 NEXT_PUBLIC_SYMBOL=ETH
 

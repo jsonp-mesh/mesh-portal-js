@@ -15,7 +15,7 @@ const MeshModal = ({
   authData,
 }) => {
   const [frontConnection, setFrontConnection] = useState(null);
-  const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID;
+  const CLIENT_ID = process.env.NEXT_PUBLIC_PORTAL_CLIENT_KEY;
 
   useEffect(() => {
     const connectionOptions = {

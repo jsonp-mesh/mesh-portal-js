@@ -2,11 +2,11 @@ import { FrontApi } from '@front-finance/api';
 
 export default async function handler(req, res) {
   const {
-    PROD_API_KEY,
+    MESH_API_KEY,
     MESH_API_URL,
-    CLIENT_ID,
+    MESH_CLIENT_ID,
     NEXT_PUBLIC_MESH_NETWORK_ADDRESS,
-    NEXT_PUBLIC_USER_ID,
+    NEXT_PUBLIC_PORTAL_CLIENT_KEY,
     NEXT_PUBLIC_SYMBOL,
   } = process.env;
   const { authModal, address } = req.query;
@@ -15,8 +15,10 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
+  console.log(MESH_API_KEY, MESH_CLIENT_ID);
+
   const bodyObject = {
-    UserId: NEXT_PUBLIC_USER_ID,
+    UserId: NEXT_PUBLIC_PORTAL_CLIENT_KEY,
   };
 
   if (authModal === 'false' || authModal === undefined) {
@@ -35,8 +37,8 @@ export default async function handler(req, res) {
     baseURL: MESH_API_URL,
     headers: {
       'Content-Type': 'application/json',
-      'X-Client-Id': CLIENT_ID,
-      'X-Client-Secret': PROD_API_KEY,
+      'X-Client-Id': MESH_CLIENT_ID,
+      'X-Client-Secret': MESH_API_KEY,
     },
   });
 

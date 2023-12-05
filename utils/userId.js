@@ -1,4 +1,4 @@
-const userId = process.env.NEXT_PUBLIC_USER_ID;
+const userId = process.env.NEXT_PUBLIC_PORTAL_CLIENT_KEY;
 
 export const getUserId = (brokerType) => {
   switch (brokerType) {
