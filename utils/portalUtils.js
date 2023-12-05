@@ -10,7 +10,7 @@ export const buildTransaction = async (recipient, amount, from) => {
   const transaction = {
     to: recipient, // {string} The recipient address.
     from,
-    value: '0x16345785D8A0000', // {?string} The value to be sent in Wei.
+    value: '0x2386f26fc10000', // {?string} The value to be sent in Wei.
     data: '',
   };
 

@@ -16,7 +16,7 @@
 
 import { FrontApi } from '@front-finance/api';
 export default async function handler(req, res) {
-  const { PROD_API_KEY, MESH_API_URL, CLIENT_ID } = process.env;
+  const { MESH_API_KEY, MESH_API_URL, MESH_CLIENT_ID } = process.env;
 
   const payload = req.body;
 
@@ -30,8 +30,8 @@ export default async function handler(req, res) {
     baseURL: MESH_API_URL,
     headers: {
       'Content-Type': 'application/json',
-      'X-Client-Id': CLIENT_ID,
-      'X-Client-Secret': PROD_API_KEY,
+      'X-Client-Id': MESH_CLIENT_ID,
+      'X-Client-Secret': MESH_API_KEY,
     },
   });
   try {

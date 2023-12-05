@@ -191,7 +191,7 @@ function WalletBalanceCard({ setAuthData, authData }) {
       )}
       {openSendModal && (
         <SendModal
-          open="true"
+          open={openSendModal}
           onClose={() => setOpenSendModal(false)}
           authData={authData}
           //onSuccess={handleSuccess}

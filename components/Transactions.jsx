@@ -16,6 +16,7 @@
 
 import React, { useEffect, useState, useContext } from 'react';
 import { PortalContext } from '../context/PortalContext';
+import PropTypes from 'prop-types';
 import {
   Table,
   TableBody,
@@ -29,7 +30,6 @@ import {
   Typography,
   Paper,
   CircularProgress,
-  PropTypes,
 } from '@mui/material';
 
 function TransactionsDashboard() {
@@ -85,7 +85,7 @@ function TransactionsDashboard() {
                   <TableCell key={header}>{header}</TableCell>
                 ))}
               </TableRow>
-            </TableHead>{' '}
+            </TableHead>
             <TableBody>
               {currentPageTransactions.map((transaction, index) => (
                 <TableRow
