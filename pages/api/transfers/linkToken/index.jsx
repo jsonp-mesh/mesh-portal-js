@@ -15,8 +15,6 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  console.log(MESH_API_KEY, MESH_CLIENT_ID);
-
   const bodyObject = {
     UserId: NEXT_PUBLIC_PORTAL_CLIENT_KEY,
   };
