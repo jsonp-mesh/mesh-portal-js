@@ -5,7 +5,8 @@ import WalletBalanceCard from '../components/WalletInfo';
 import Header from '../components/Header';
 
 export default function ParentComponent() {
-  const { isPortalReady, portalError } = useContext(PortalContext);
+  const { isPortalReady, portalError, walletStatus } =
+    useContext(PortalContext);
   const [authData, setAuthData] = useState(() => {
     if (typeof window !== 'undefined') {
       const storedAuthData = localStorage.getItem('authData');
@@ -39,7 +40,7 @@ export default function ParentComponent() {
         >
           <CircularProgress color="primary" />
           <Typography variant="h6" style={{ marginTop: 20 }}>
-            Loading Wallet...
+            {walletStatus}
           </Typography>
         </Box>
       </>

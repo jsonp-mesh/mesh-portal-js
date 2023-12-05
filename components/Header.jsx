@@ -35,7 +35,6 @@ function Header() {
             style={{ color: '#fff' }}
           >
             <MenuItem value={1}>Mainnet</MenuItem>{' '}
-            {/* Ensure these are numbers */}
             <MenuItem value={5}>Testnet</MenuItem>
           </Select>
         </Box>

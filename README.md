@@ -22,7 +22,7 @@ https://app.portalhq.io/settings
 Set environment variables:
 #Portal Credentials
 NEXT_PUBLIC_PORTAL_API_KEY={{your api key}}
-NEXT_PUBLIC_PORTAL_CLIENT_KEY={{your end users custodian key}} 
+NEXT_PUBLIC_PORTAL_CLIENT_KEY={{your end users client identifier}} 
 
 #RPC Provider Credentials
 NEXT_PUBLIC_MAINNET_GATEWAY_URL={{your Mainnet RPC GATEWAY host with key in path (i.e., Infura)}}

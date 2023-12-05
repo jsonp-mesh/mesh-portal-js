@@ -23,7 +23,6 @@ const SendModal = ({ open, onClose, authData, setOpenSendModal }) => {
   const [signing, setSigning] = useState(false);
   const [transactionMessage, setTransactionMessage] = useState('');
 
-  const exchange = process.env.NEXT_PUBLIC_EXCHANGE;
   const chain = process.env.NEXT_PUBLIC_CHAIN;
   const symbol = process.env.NEXT_PUBLIC_SYMBOL;
 
@@ -32,8 +31,8 @@ const SendModal = ({ open, onClose, authData, setOpenSendModal }) => {
   useEffect(() => {
     const getDepositDetails = async () => {
       const payload = {
-        authToken: authData.accessToken.accountTokens[0].accessToken,
-        type: exchange,
+        authToken: authData?.accessToken?.accountTokens[0]?.accessToken,
+        type: authData?.accessToken?.brokerType,
         symbol,
         chain,
       };
@@ -50,7 +49,7 @@ const SendModal = ({ open, onClose, authData, setOpenSendModal }) => {
 
         setRecipient(response.content.address);
       } catch (err) {
-        console.log(err);
+        console.log('fetch address error', err);
         localStorage.removeItem('authData');
         setOpenSendModal(false);
         alert('your connected account token expired');

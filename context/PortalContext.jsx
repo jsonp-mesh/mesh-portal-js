@@ -12,17 +12,18 @@ const PortalProvider = ({ children }) => {
   const [walletAddress, setWalletAddress] = useState(null);
   const [isPortalReady, setIsPortalReady] = useState(false);
   const [chain, setChain] = useState(5);
+  const [walletStatus, setWalletStatus] = useState('Loading...');
 
   const initiatePortalInstance = (chainId) => {
     if (typeof window !== 'undefined') {
-      const portalClientKey = process.env.NEXT_PUBLIC_PORTAL_CLIENT_KEY;
+      const portalAPIKey = process.env.NEXT_PUBLIC_PORTAL_API_KEY;
       const gatewayConfig = {
         1: process.env.NEXT_PUBLIC_MAINNET_GATEWAY_URL,
         5: process.env.NEXT_PUBLIC_GOERLI_GATEWAY_URL,
       };
 
       const portal = new Portal({
-        apiKey: portalClientKey,
+        apiKey: portalAPIKey,
         autoApprove: process.env.NODE_ENV === 'development',
         chainId,
         gatewayConfig: gatewayConfig[chainId],
@@ -34,7 +35,10 @@ const PortalProvider = ({ children }) => {
       portal.onReady(async () => {
         try {
           if (!portal.address) {
-            await portal.createWallet();
+            setWalletStatus('Creating your wallet.  Hang tight ;) ');
+            await portal.createWallet({
+              featureFlags: { optimized: true },
+            });
             setIsPortalReady(true);
           }
 
@@ -58,6 +62,7 @@ const PortalProvider = ({ children }) => {
     walletAddress,
     initiatePortalInstance,
     chain,
+    walletStatus,
   };
 
   return (
