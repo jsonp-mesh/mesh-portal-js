@@ -19,17 +19,24 @@ Navigate to Portal Dashboard to grab API keys:
 
 https://app.portalhq.io/settings
 
-Set environment variables:
-#Portal Credentials
+Click 'New Test Client API Key' and copy both values
+
+### Set environment variables:
+
+
+```bash
+//Portal Credentials
 NEXT_PUBLIC_PORTAL_API_KEY={{your api key }} #HINT: contains dashes in key
 NEXT_PUBLIC_PORTAL_CLIENT_KEY={{your end users client identifier}} 
 
-#RPC Provider Credentials
+//RPC Provider Credentials
 NEXT_PUBLIC_MAINNET_GATEWAY_URL={{your Mainnet RPC GATEWAY host with key in path (i.e., Infura)}}
 NEXT_PUBLIC_GOERLI_GATEWAY_URL={{your Goerli RPC GATEWAY host with key in path (i.e., Infura)}}
 
 
-#Mesh Credentials
+//Mesh Credentials
+
+
 NEXT_PUBLIC_MESH_API_URL=https://integration-api.getfront.com
 MESH_API_URL=https://integration-api.getfront.com
 MESH_API_KEY={{{Mesh API Secret Key}}}
@@ -41,14 +48,22 @@ NEXT_PUBLIC_MESH_NETWORK_ADDRESS=e3c7fdd8-b1fc-4e51-85ae-bb276e075611 // this is
 NEXT_PUBLIC_CHAIN=ethereum
 NEXT_PUBLIC_SYMBOL=ETH
 
+```
+
 Add the following environment variables to a .env file in base of the repository:
 
 Validate the values contained in the .env file:
 
-```source .env echo NEXT_PUBLIC_CLIENT_ID ```
+```bash
+source .env 
+echo NEXT_PUBLIC_CLIENT_ID 
+```
 
-Run the application
-```npm run dev ```
+Run the application:
+
+```bash
+npm run dev
+ ```
 
 Navigate to localhost:{{yourPort}}. You should see the app running.
 
